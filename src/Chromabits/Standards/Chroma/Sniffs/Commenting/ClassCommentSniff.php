@@ -1,5 +1,7 @@
 <?php
 
+use PEAR_Sniffs_Commenting_ClassCommentSniff as BaseSniff;
+
 /**
  * Chroma Class Comment Sniff
  *
@@ -7,8 +9,9 @@
  * (author, package) and enforces a simple order on every file
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
+ * @package Chromabits\Standards\Chroma\Sniffs\Commenting
  */
-class Chroma_Sniffs_Commenting_ClassCommentSniff extends PEAR_Sniffs_Commenting_ClassCommentSniff
+class Chroma_Sniffs_Commenting_ClassCommentSniff extends BaseSniff
 {
     /**
      * Custom tag definitions for the Chroma standard
