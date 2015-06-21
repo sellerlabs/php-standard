@@ -93,6 +93,41 @@ class Chroma_Sniffs_Commenting_ClassCommentSniff extends BaseSniff
     }
 
     /**
+     * Process tags inside the comment block.
+     *
+     * @param PHP_CodeSniffer_File $file
+     * @param int $stackPtr
+     * @param int $commentStart
+     */
+    protected function processTags(
+        PHP_CodeSniffer_File $file,
+        $stackPtr,
+        $commentStart
+    ) {
+        $tokens = $file->getTokens();
+        $type = strtolower($tokens[$stackPtr]['content']);
+        $firstComment = $tokens[$commentStart + 5]['content'];
+
+        if ($type === 'class') {
+            if (substr($firstComment, 0, 5) != 'Class') {
+                $file->addError(
+                    'First line should have form: "Class ClassName"',
+                    $commentStart + 5
+                );
+            }
+        } elseif ($type == 'interface') {
+            if (substr($firstComment, 0, 9) != 'Interface') {
+                $file->addError(
+                    'First line should have form: "Interface ClassName"',
+                    $commentStart + 5
+                );
+            }
+        }
+
+        parent::processTags($file, $stackPtr, $commentStart);
+    }
+
+    /**
      * Process the package tag.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
