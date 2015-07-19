@@ -26,7 +26,7 @@ class Application extends BaseApplication
      */
     public function __construct()
     {
-        parent::__construct('phpstd', '0.1.0');
+        parent::__construct('phpstd', '0.1.2');
 
         $this->add(new FixCommand());
         $this->add(new FormatCommand());

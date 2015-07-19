@@ -17,6 +17,7 @@ use Mmoreram\PHPFormatter\Command\UseSortCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -38,6 +39,8 @@ class FormatCommand extends Command
         $this->setDescription(
             'Format the codebase with file headers and statement sorting.'
         );
+
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE);
     }
 
     /**
@@ -56,13 +59,17 @@ class FormatCommand extends Command
 
         foreach (RootDirectories::getEnforceable() as $directory) {
             if ($filesystem->exists($directory) && is_dir($directory)) {
-                $formatInput = new ArrayInput([
+                $formatInput = [
                     'path' => $directory,
-                ]);
+                ];
+
+                if ($input->getOption('dry-run')) {
+                    $formatInput['--dry-run'] = true;
+                }
 
                 $output->writeln('<comment>' . $directory . '</comment>');
-                $headerCommand->run($formatInput, $output);
-                $sortCommand->run($formatInput, $output);
+                $headerCommand->run(new ArrayInput($formatInput), $output);
+                $sortCommand->run(new ArrayInput($formatInput), $output);
             }
         }
 

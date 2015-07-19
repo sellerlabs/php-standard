@@ -14,6 +14,7 @@ namespace Chromabits\Standards\Console;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -32,6 +33,19 @@ class CleanCommand extends Command
         parent::__construct('style:clean');
 
         $this->setDescription('Runs all fix and format operations.');
+
+        $this->addOption(
+            'dry-run',
+            null,
+            InputOption::VALUE_NONE,
+            'Pretend to run and show operation that would be performed.'
+        );
+        $this->addOption(
+            'diff',
+            null,
+            InputOption::VALUE_NONE,
+            'Show diff of changes.'
+        );
     }
 
     /**
@@ -48,11 +62,23 @@ class CleanCommand extends Command
         $fixCommand = new FixCommand();
         $formatCommand = new FormatCommand();
 
+        $fixInput = [];
+        $formatInput = [];
+
+        if ($input->getOption('dry-run')) {
+            $fixInput['--dry-run'] = true;
+            $formatInput['--dry-run'] = true;
+        }
+
+        if ($input->getOption('diff')) {
+            $fixInput['--diff'] = true;
+        }
+
         $output->writeln('<info>Running style:fix...</info>');
-        $fixCommand->run(new ArrayInput([]), $output);
+        $fixCommand->run(new ArrayInput($fixInput), $output);
 
         $output->writeln('<info>Running style:format...</info>');
-        $formatCommand->run(new ArrayInput([]), $output);
+        $formatCommand->run(new ArrayInput($formatInput), $output);
 
         return 0;
     }
