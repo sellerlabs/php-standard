@@ -1,0 +1,13 @@
+use-sort:
+    sort-type: alph
+    sort-direction: asc
+
+header: |
+    /**
+     * Copyright <year>, <owner>
+     *
+     * For the full copyright and license information, please view the LICENSE
+     * file that was distributed with this source code.
+     *
+     * This file is part of the <package> package
+     */

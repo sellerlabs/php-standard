@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This file is part of the PHP Standards package
+ */
+
 use PHP_CodeSniffer_Sniff as BaseSniff;
 
 /**
@@ -22,7 +31,7 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
     public function register()
     {
         return [
-            T_FUNCTION
+            T_FUNCTION,
         ];
     }
 
@@ -153,7 +162,6 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
                 null,
                 false)
             ) !== false) {
-
             $position = strpos(
                 $tokens[$lineStart]['content'],
                 $phpcsFile->eolChar

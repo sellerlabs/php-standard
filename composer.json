@@ -1,0 +1,22 @@
+{
+  "name": "chromabits/standards",
+  "description": "An opinionated PHP standard",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Eduardo Trujillo",
+      "email": "ed@chromabits.com"
+    }
+  ],
+  "kind": "application",
+  "autoload": {
+    "psr-4": {
+      "Chromabits\\Standards\\": "src/Chromabits/Standards"
+    }
+  },
+  "require": {
+    "fabpot/php-cs-fixer": "^1.9",
+    "chromabits/nucleus": "^0.2.4",
+    "mmoreram/php-formatter": "dev-master"
+  }
+}
