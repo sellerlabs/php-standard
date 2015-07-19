@@ -8,7 +8,7 @@
       "email": "ed@chromabits.com"
     }
   ],
-  "kind": "application",
+  "type": "application",
   "autoload": {
     "psr-4": {
       "Chromabits\\Standards\\": "src/Chromabits/Standards"
@@ -18,5 +18,6 @@
     "fabpot/php-cs-fixer": "^1.9",
     "chromabits/nucleus": "^0.2.4",
     "mmoreram/php-formatter": "dev-master"
-  }
+  },
+  "bin": ["phpstd"]
 }
