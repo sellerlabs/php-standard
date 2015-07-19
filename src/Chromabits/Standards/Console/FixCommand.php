@@ -35,5 +35,6 @@ class FixCommand extends BaseCommand
         parent::__construct($fixer, coalesce($config, new StyleConfig()));
 
         $this->setName('style:fix');
+        $this->setDescription('Fixes a directory or a file.');
     }
 }

@@ -15,9 +15,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 
 /**
  * Class InitCommand
@@ -53,6 +53,7 @@ class InitCommand extends Command
         $copyrightYear = date("Y");
         $packageName = 'Unknown';
         $packageOwner = 'Contributors';
+        $packageOwnerEmail = '';
 
         if ($input->hasOption('name')) {
             $packageName = $input->getOption('name');
@@ -66,23 +67,52 @@ class InitCommand extends Command
             $packageOwner = $input->getOption('owner');
         } else {
             $packageOwner = $helper->ask($input, $output, new Question(
-                'Who is the copyright owner of the package? '
+                'Who is the package owner? '
             ));
         }
 
-        $finder = new Finder();
-        $fileIterator = $finder->in('.')->name('*formatter.yml')->files()
-            ->getIterator();
-        $fileIterator->next();
-        $file = $fileIterator->current();
-        $template = $file->getContents();
+        if ($input->hasOption('email')) {
+            $packageOwnerEmail = $input->getOption('email');
+        } else {
+            $packageOwnerEmail = $helper->ask($input, $output, new Question(
+                'What is the contact email of the owner? (Optional) ',
+                ''
+            ));
+        }
+
+        $template = file_get_contents(
+            __DIR__ . '/../../../../resources/project/formatter.yml'
+        );
 
         $template = str_replace('<year>', $copyrightYear, $template);
         $template = str_replace('<owner>', $packageOwner, $template);
         $template = str_replace('<package>', $packageName, $template);
+        $template = str_replace('<email>', $packageOwnerEmail, $template);
 
         $filesystem = new Filesystem();
-        $filesystem->dumpFile('.formatter.yml', $template);
+
+        if ($filesystem->exists('.formatter.yml')) {
+            if ($helper->ask($input, $output, new ConfirmationQuestion(
+                '.formatter.yml already exists. Overwrite? (y/N) ',
+                false
+            ))) {
+                $filesystem->dumpFile('.formatter.yml', $template);
+                $output->writeln('Wrote .formatter.yml');
+            }
+        } else {
+            $filesystem->dumpFile('.formatter.yml', $template);
+            $output->writeln('Wrote .formatter.yml');
+        }
+
+        if (!$filesystem->exists('.editorconfig')) {
+            $filesystem->dumpFile(
+                '.editorconfig',
+                file_get_contents(
+                    __DIR__ . '/../../../../resources/project/editorconfig'
+                )
+            );
+            $output->writeln('Wrote .editorconfig');
+        }
 
         return 0;
     }
