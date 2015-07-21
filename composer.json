@@ -17,7 +17,8 @@
   "require": {
     "fabpot/php-cs-fixer": "^1.9",
     "chromabits/nucleus": "^0.2.4",
-    "mmoreram/php-formatter": "dev-master"
+    "mmoreram/php-formatter": "1.0.5"
   },
+  "minimum-stability": "stable",
   "bin": ["phpstd"]
 }

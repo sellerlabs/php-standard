@@ -62,6 +62,8 @@ class ValidateCommand extends Command
             return 0;
         }
 
+        $output->writeln('The following issues where found:');
+
         $table = new Table($output);
 
         $table->setHeaders(['Directory', 'Comment']);
