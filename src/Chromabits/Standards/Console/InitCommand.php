@@ -20,7 +20,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * Class InitCommand
+ * Class InitCommand.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Console
@@ -50,7 +50,7 @@ class InitCommand extends Command
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
 
-        $copyrightYear = date("Y");
+        $copyrightYear = date('Y');
         $packageName = 'Unknown';
         $packageOwner = 'Contributors';
         $packageOwnerEmail = '';

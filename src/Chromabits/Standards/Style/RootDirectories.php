@@ -14,7 +14,7 @@ namespace Chromabits\Standards\Style;
 use Chromabits\Nucleus\Support\Enum;
 
 /**
- * Class RootDirectories
+ * Class RootDirectories.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Style

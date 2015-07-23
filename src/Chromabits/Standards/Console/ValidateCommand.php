@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * Class ValidateCommand
+ * Class ValidateCommand.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Console

@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * Class FormatCommand
+ * Class FormatCommand.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Console

@@ -1,18 +1,17 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * This file is part of the PHP Standards package
  */
-
 use PHP_CodeSniffer_Sniff as BaseSniff;
 
 /**
- * Class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff
+ * Class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff.
  *
  * Similar to OpeningFunctionBraceBsdAllmanSniff but it ignores cases where
  * the function is multi-line. In these cases, the closing parenthesis is likely
@@ -42,7 +41,6 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
      * @param int $stackPtr The position of the current token in the
      * stack passed in $tokens.
      *
-     * @return void
      */
     public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {

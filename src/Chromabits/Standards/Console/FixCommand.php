@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,7 +17,7 @@ use Symfony\CS\Console\Command\FixCommand as BaseCommand;
 use Symfony\CS\Fixer;
 
 /**
- * Class FixCommand
+ * Class FixCommand.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Console

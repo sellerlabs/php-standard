@@ -1,18 +1,17 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * This file is part of the PHP Standards package
  */
-
 use PEAR_Sniffs_Commenting_ClassCommentSniff as BaseSniff;
 
 /**
- * Chroma Class Comment Sniff
+ * Chroma Class Comment Sniff.
  *
  * Makes sure a class comment exists and has a minimum set of parameters
  * (author, package) and enforces a simple order on every file
@@ -23,7 +22,7 @@ use PEAR_Sniffs_Commenting_ClassCommentSniff as BaseSniff;
 class Chroma_Sniffs_Commenting_ClassCommentSniff extends BaseSniff
 {
     /**
-     * Custom tag definitions for the Chroma standard
+     * Custom tag definitions for the Chroma standard.
      *
      * @var array
      */
@@ -142,7 +141,6 @@ class Chroma_Sniffs_Commenting_ClassCommentSniff extends BaseSniff
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
      * @param array $tags The tokens for these tags.
      *
-     * @return void
      */
     protected function processPackage(
         PHP_CodeSniffer_File $phpcsFile,

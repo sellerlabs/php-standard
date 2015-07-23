@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,7 @@ namespace Chromabits\Standards\Console;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**
- * Class Application
+ * Class Application.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Console
@@ -26,12 +26,25 @@ class Application extends BaseApplication
      */
     public function __construct()
     {
-        parent::__construct('phpstd', '0.1.2');
+        parent::__construct('phpstd', '0.1.4');
 
-        $this->add(new FixCommand());
-        $this->add(new FormatCommand());
-        $this->add(new InitCommand());
-        $this->add(new CleanCommand());
-        $this->add(new ValidateCommand());
+        $fix = new FixCommand();
+        $init = new InitCommand();
+        $clean = new CleanCommand();
+        $validate = new ValidateCommand();
+        $format = new FormatCommand();
+        $lint = new LintCommand();
+
+        $init->setAliases(['init']);
+        $clean->setAliases(['clean']);
+        $validate->setAliases(['validate']);
+        $lint->setAliases(['lint']);
+
+        $this->add($fix);
+        $this->add($format);
+        $this->add($init);
+        $this->add($clean);
+        $this->add($validate);
+        $this->add($lint);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class CleanCommand
+ * Class CleanCommand.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Console
@@ -54,8 +54,8 @@ class CleanCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      *
-     * @return int|null
      * @throws \Exception
+     * @return int|null
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
