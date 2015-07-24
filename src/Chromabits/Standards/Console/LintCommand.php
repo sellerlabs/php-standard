@@ -14,23 +14,25 @@ namespace Chromabits\Standards\Console;
 use Chromabits\Standards\Chroma\Anchor;
 use Chromabits\Standards\Style\RootDirectories;
 use PHP_CodeSniffer as CodeSniffer;
-use PHP_CodeSniffer_CLI as CLI;
 use PHP_CodeSniffer_File  as File;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class LintCommand
+ * Class LintCommand.
  *
  * @author Eduardo Trujillo <ed@chromabits.com>
  * @package Chromabits\Standards\Console
  */
 class LintCommand extends Command
 {
+    /**
+     * Construct an instance of LintCommand.
+     */
     public function __construct()
     {
         parent::__construct('style:lint');
@@ -38,32 +40,41 @@ class LintCommand extends Command
         $this->setDescription('Checks the code for issues and common bugs.');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * Setup the formatter.
+     *
+     * @param OutputFormatterInterface $formatter
+     */
+    protected function setupFormatters(OutputFormatterInterface $formatter)
     {
-        $output->getFormatter()->setStyle(
+        $formatter->setStyle(
             'file',
             new OutputFormatterStyle('white', 'default', ['bold'])
         );
-        $output->getFormatter()->setStyle(
+        $formatter->setStyle(
             'source',
             new OutputFormatterStyle('blue', 'default', [])
         );
-        $output->getFormatter()->setStyle(
+        $formatter->setStyle(
             'success',
             new OutputFormatterStyle('white', 'green', [])
         );
+    }
+
+    /**
+     * Execute the command.
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->setupFormatters($output->getFormatter());
 
         $finder = new Finder();
         $phpcs = new CodeSniffer(0);
-
-        $phpcs->allowedFileExtensions = ['php'];
-
-        $phpcsCli = new CLI();
-        $phpcsCli->errorSeverity = PHPCS_DEFAULT_ERROR_SEV;
-        $phpcsCli->warningSeverity = PHPCS_DEFAULT_WARN_SEV;
-        $phpcsCli->dieOnUnknownArg = false;
-        $phpcsCli->setCommandLineValues(['--colors', '-p', '--report=full']);
-        $phpcs->setCli($phpcsCli);
 
         $existing = [];
         foreach (RootDirectories::getEnforceable() as $directory) {
@@ -108,6 +119,23 @@ class LintCommand extends Command
             $processed[] = $done;
         }
 
+        $this->renderSummary($withErrors, $withWarnings, $output);
+    }
+
+    /**
+     * Render the error and warning summary.
+     *
+     * @param array $withErrors
+     * @param array $withWarnings
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
+    protected function renderSummary(
+        array $withErrors,
+        array $withWarnings,
+        OutputInterface $output
+    ) {
         $output->writeln("\n");
 
         if (count($withErrors)) {
@@ -124,8 +152,11 @@ class LintCommand extends Command
 
         if (count($withErrors) === 0 && count($withWarnings) === 0) {
             $output->writeln('<success>GREAT JOB! IT\'S BEAUTIFUL</success>');
-        }
 
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     /**
@@ -162,15 +193,21 @@ class LintCommand extends Command
         }
     }
 
+    /**
+     * Render individual error and warning messages.
+     *
+     * @param array $messages
+     * @param OutputInterface $output
+     */
     protected function renderMessages(array $messages, OutputInterface $output)
     {
         foreach ($messages as $line => $lineErrors) {
             foreach ($lineErrors as $column => $columnErrors) {
                 foreach ($columnErrors as $error) {
                     $output->writeln([
-                        ">>  $line:$column  <source>" . $error['source'] .
+                        ">>  $line:$column<source>" . $error['source'] .
                         '</source>',
-                        '    ' . $error['message']
+                        '    ' . $error['message'],
                     ]);
                 }
             }
