@@ -38,14 +38,14 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+     * @param PHP_CodeSniffer_File $file The file being scanned.
      * @param int $stackPtr The position of the current token in the
      * stack passed in $tokens.
      *
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(PHP_CodeSniffer_File $file, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
+        $tokens = $file->getTokens();
 
         if (isset($tokens[$stackPtr]['scope_opener']) === false) {
             return;
@@ -67,28 +67,28 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
 
         if ($lineDifference === 0 && !$isMultiline) {
             $error = 'Opening brace should be on a new line';
-            $fix = $phpcsFile->addFixableError(
+            $fix = $file->addFixableError(
                 $error,
                 $openingBrace,
                 'BraceOnSameLine'
             );
 
             if ($fix === true) {
-                $phpcsFile->fixer->beginChangeset();
-                $indent = $phpcsFile->findFirstOnLine([], $openingBrace);
+                $file->fixer->beginChangeset();
+                $indent = $file->findFirstOnLine([], $openingBrace);
 
                 if ($tokens[$indent]['code'] === T_WHITESPACE) {
-                    $phpcsFile->fixer->addContentBefore(
+                    $file->fixer->addContentBefore(
                         $openingBrace,
                         $tokens[$indent]['content']
                     );
                 }
 
-                $phpcsFile->fixer->addNewlineBefore($openingBrace);
-                $phpcsFile->fixer->endChangeset();
+                $file->fixer->addNewlineBefore($openingBrace);
+                $file->fixer->endChangeset();
             }
 
-            $phpcsFile->recordMetric(
+            $file->recordMetric(
                 $stackPtr,
                 'Function opening brace placement',
                 'same line'
@@ -98,7 +98,7 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
                 $error = 'Opening brace should be on the line after the'
                     . ' declaration; found %s blank line(s)';
                 $data = [($lineDifference - 1)];
-                $fix = $phpcsFile->addFixableError(
+                $fix = $file->addFixableError(
                     $error,
                     $openingBrace,
                     'BraceSpacing',
@@ -109,17 +109,17 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
                     $afterCloser = $parenthesisCloser + 1;
                     for ($i = $afterCloser; $i < $openingBrace; $i++) {
                         if ($tokens[$i]['line'] === $braceLine) {
-                            $phpcsFile->fixer->addNewLineBefore($i);
+                            $file->fixer->addNewLineBefore($i);
                             break;
                         }
 
-                        $phpcsFile->fixer->replaceToken($i, '');
+                        $file->fixer->replaceToken($i, '');
                     }
                 }
             }
         }
 
-        $next = $phpcsFile->findNext(
+        $next = $file->findNext(
             T_WHITESPACE,
             ($openingBrace + 1),
             null,
@@ -133,14 +133,14 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
             }
 
             $error = 'Opening brace must be the last content on the line';
-            $fix = $phpcsFile->addFixableError(
+            $fix = $file->addFixableError(
                 $error,
                 $openingBrace,
                 'ContentAfterBrace'
             );
 
             if ($fix === true) {
-                $phpcsFile->fixer->addNewline($openingBrace);
+                $file->fixer->addNewline($openingBrace);
             }
         }
 
@@ -155,7 +155,7 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
         // checking from there, rather than the current token.
         $lineStart = $stackPtr;
         while (
-            ($lineStart = $phpcsFile->findPrevious(
+            ($lineStart = $file->findPrevious(
                 T_WHITESPACE,
                 ($lineStart - 1),
                 null,
@@ -163,7 +163,7 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
             ) !== false) {
             $position = strpos(
                 $tokens[$lineStart]['content'],
-                $phpcsFile->eolChar
+                $file->eolChar
             );
             if ($position !== false) {
                 break;
@@ -172,7 +172,7 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
 
         // We found a new line, now go forward and find the first
         // non-whitespace token.
-        $lineStart = $phpcsFile->findNext(T_WHITESPACE, $lineStart, null, true);
+        $lineStart = $file->findNext(T_WHITESPACE, $lineStart, null, true);
 
         // The opening brace is on the correct line, now it needs to be
         // checked to be correctly indented.
@@ -190,7 +190,7 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
                 $found,
             ];
 
-            $fix = $phpcsFile->addFixableError(
+            $fix = $file->addFixableError(
                 $error,
                 $openingBrace,
                 'BraceIndent',
@@ -201,9 +201,9 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
                 $indent = str_repeat(' ', $expected);
 
                 if ($found === 0) {
-                    $phpcsFile->fixer->addContentBefore($openingBrace, $indent);
+                    $file->fixer->addContentBefore($openingBrace, $indent);
                 } else {
-                    $phpcsFile->fixer->replaceToken(
+                    $file->fixer->replaceToken(
                         ($openingBrace - 1),
                         $indent
                     );
@@ -211,7 +211,7 @@ class Chroma_Sniffs_Functions_OpeningFunctionBraceSniff implements BaseSniff
             }
         }
 
-        $phpcsFile->recordMetric(
+        $file->recordMetric(
             $stackPtr,
             'Function opening brace placement',
             'new line'

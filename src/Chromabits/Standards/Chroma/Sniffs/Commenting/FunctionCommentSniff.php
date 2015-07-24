@@ -11,6 +11,102 @@ use PHP_CodeSniffer_File as File;
  */
 class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
 {
+    protected static $useCache = [];
+
+    /**
+     * Processes this test, when one of its tokens is encountered.
+     *
+     * @param PHP_CodeSniffer_File $file The file being scanned.
+     * @param int $stackPtr The position of the current token in the stack
+     * passed in $tokens.
+     */
+    public function process(File $file, $stackPtr)
+    {
+        $tokens = $file->getTokens();
+        $find = PHP_CodeSniffer_Tokens::$methodPrefixes;
+        $find[] = T_WHITESPACE;
+
+        $commentEnd = $file->findPrevious($find, ($stackPtr - 1), null, true);
+        if ($tokens[$commentEnd]['code'] === T_COMMENT) {
+            // Inline comments might just be closing comments for
+            // control structures or functions instead of function comments
+            // using the wrong comment type. If there is other code on the line,
+            // assume they relate to that code.
+            $prev = $file->findPrevious($find, ($commentEnd - 1), null, true);
+            if ($prev !== false
+                && $tokens[$prev]['line'] === $tokens[$commentEnd]['line']
+            ) {
+                $commentEnd = $prev;
+            }
+        }
+
+        // Should we ignore the missing comment? Only for tests.
+        $functionNamePos = $file->findNext(T_STRING, $stackPtr);
+        if (substr($tokens[$functionNamePos]['content'], 0, 4) === 'test') {
+            return;
+        }
+
+        if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG
+            && $tokens[$commentEnd]['code'] !== T_COMMENT
+        ) {
+            $file->addError(
+                'Missing function doc comment',
+                $stackPtr,
+                'Missing'
+            );
+            $file->recordMetric(
+                $stackPtr,
+                'Function has doc comment',
+                'no'
+            );
+
+            return;
+        } else {
+            $file->recordMetric(
+                $stackPtr,
+                'Function has doc comment',
+                'yes'
+            );
+        }
+
+        if ($tokens[$commentEnd]['code'] === T_COMMENT) {
+            $file->addError(
+                'You must use "/**" style comments for a function comment',
+                $stackPtr,
+                'WrongStyle'
+            );
+
+            return;
+        }
+
+        if ($tokens[$commentEnd]['line'] !== ($tokens[$stackPtr]['line'] - 1)) {
+            $error = 'There must be no blank lines after the function comment';
+            $file->addError($error, $commentEnd, 'SpacingAfter');
+        }
+
+        $commentStart = $tokens[$commentEnd]['comment_opener'];
+        foreach ($tokens[$commentStart]['comment_tags'] as $tag) {
+            if ($tokens[$tag]['content'] === '@see') {
+                // Make sure the tag isn't empty.
+                $string = $file->findNext(
+                    T_DOC_COMMENT_STRING,
+                    $tag,
+                    $commentEnd
+                );
+                if ($string === false
+                    || $tokens[$string]['line'] !== $tokens[$tag]['line']
+                ) {
+                    $error = 'Content missing for @see tag in function comment';
+                    $file->addError($error, $tag, 'EmptySees');
+                }
+            }
+        }
+
+        $this->processReturn($file, $stackPtr, $commentStart);
+        $this->processThrows($file, $stackPtr, $commentStart);
+        $this->processParams($file, $stackPtr, $commentStart);
+    }
+
     /**
      * Process a @param comment .
      *
@@ -226,12 +322,17 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
      */
     protected function findUseStatements(File $file)
     {
+        if (array_key_exists($file->getFilename(), static::$useCache)) {
+            return static::$useCache[$file->getFilename()];
+        }
+
         $tokens = $file->getTokens();
         $usePosition = $file->findNext(T_USE, 0);
         $useStatements = [];
 
         while ($usePosition !== false) {
             if ($this->shouldIgnoreUse($file, $usePosition)) {
+                $usePosition = $file->findNext(T_USE, $usePosition + 1);
                 continue;
             }
 
@@ -283,6 +384,8 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
 
             $usePosition = $file->findNext(T_USE, $usePosition + 1);
         }
+
+        static::$useCache[$file->getFilename()] = $useStatements;
 
         return $useStatements;
     }
