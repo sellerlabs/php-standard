@@ -14,6 +14,7 @@ namespace Chromabits\Standards\Console;
 use Chromabits\Standards\Chroma\Anchor;
 use Chromabits\Standards\Style\RootDirectories;
 use PHP_CodeSniffer as CodeSniffer;
+use PHP_CodeSniffer_CLI as CLI;
 use PHP_CodeSniffer_File  as File;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
@@ -75,6 +76,13 @@ class LintCommand extends Command
 
         $finder = new Finder();
         $phpcs = new CodeSniffer(0);
+
+        $phpcsCli = new CLI();
+        $phpcsCli->errorSeverity = PHPCS_DEFAULT_ERROR_SEV;
+        $phpcsCli->warningSeverity = PHPCS_DEFAULT_WARN_SEV;
+        $phpcsCli->dieOnUnknownArg = false;
+        $phpcsCli->setCommandLineValues(['--colors', '-p', '--report=full']);
+        $phpcs->setCli($phpcsCli);
 
         $existing = [];
         foreach (RootDirectories::getEnforceable() as $directory) {
@@ -205,7 +213,7 @@ class LintCommand extends Command
             foreach ($lineErrors as $column => $columnErrors) {
                 foreach ($columnErrors as $error) {
                     $output->writeln([
-                        ">>  $line:$column<source>" . $error['source'] .
+                        ">>  $line:$column  <source>" . $error['source'] .
                         '</source>',
                         '    ' . $error['message'],
                     ]);
