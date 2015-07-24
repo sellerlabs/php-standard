@@ -386,6 +386,7 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
             case 'string':
             case 'null':
             case 'array';
+            case 'mixed':
             case 'resource':
                 return true;
             default:
