@@ -445,6 +445,11 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
             return;
         }
 
+        $directory = dirname($file->phpcs->realpath($file->getFilename()));
+        if (file_exists($directory . '/' . $type . '.php')) {
+            return;
+        }
+
         $file->addError(
             'The type %s was not found in the class use statements.',
             $pos,
@@ -492,7 +497,9 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
             case 'mixed':
             case 'static':
             case 'self':
+            case 'callable':
             case 'resource':
+            case 'object':
                 return true;
             default:
                 return false;
@@ -542,5 +549,39 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
         }
 
         return;
+    }
+
+    /**
+     * Extract the first namespace found in the file.
+     *
+     * @param PHP_CodeSniffer_File $file
+     *
+     * @return string
+     */
+    protected function extractNamespace(
+        File $file
+    ) {
+        $namespace = '';
+
+        $tokens = $file->getTokens();
+
+        $prev = $file->findNext(T_NAMESPACE, 0);
+
+        for ($i = $prev + 2; $i < count($tokens); $i++) {
+            if (!in_array($tokens[$i]['code'], [T_STRING, T_NS_SEPARATOR])) {
+                break;
+            }
+
+            $namespace .= $tokens[$i]['content'];
+        }
+
+        return $namespace;
+    }
+
+    protected function beginsWith($haystack, $needle) {
+        // Search backwards starting from haystack length characters from the
+        // end.
+        return $needle === ""
+            || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
     }
 }
