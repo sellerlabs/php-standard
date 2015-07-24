@@ -12,6 +12,7 @@
 namespace Chromabits\Standards\Style;
 
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\CS\Config\Config;
 use Symfony\CS\Finder\DefaultFinder;
 use Symfony\CS\FixerInterface;
@@ -104,7 +105,7 @@ class StyleConfig extends Config
     /**
      * Make the default finder for Chromabits projects.
      *
-     * @return \Symfony\Component\Finder\Finder
+     * @return Finder
      */
     protected function makeFinder()
     {

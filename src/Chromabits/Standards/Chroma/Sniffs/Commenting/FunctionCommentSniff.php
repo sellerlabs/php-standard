@@ -412,11 +412,6 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
     ) {
         $tokens = $phpcsFile->getTokens();
 
-        // Skip constructor and destructor.
-        //$methodName = $phpcsFile->getDeclarationName($stackPtr);
-        //$isSpecialMethod =
-        //    ($methodName === '__construct' || $methodName === '__destruct');
-
         $return = null;
         foreach ($tokens[$commentStart]['comment_tags'] as $tag) {
             if ($tokens[$tag]['content'] === '@return') {
@@ -428,32 +423,18 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
                     return;
                 }
 
+                if ($tokens[$tag + 2]['code'] === T_DOC_COMMENT_STRING) {
+                    $types = explode('|', $tokens[$tag + 2]['content']);
+
+                    foreach ($types as $type) {
+                        $this->checkParamType($type, $tag + 2, $phpcsFile);
+                    }
+                }
+
                 $return = $tag;
             }
         }
 
         return;
-
-//        if ($isSpecialMethod === true) {
-//            return;
-//        }
-//
-//        if ($return !== null) {
-//            $content = $tokens[($return + 2)]['content'];
-//            if (empty($content) === true
-//                || $tokens[($return + 2)]['code'] !== T_DOC_COMMENT_STRING
-//            ) {
-//                $error =
-//                    'Return type missing for @return tag in function comment';
-//                $phpcsFile->addError($error, $return, 'MissingReturnType');
-//            }
-//        } else {
-//            $error = 'Missing @return tag in function comment';
-//            $phpcsFile->addError(
-//                $error,
-//                $tokens[$commentStart]['comment_closer'],
-//                'MissingReturn'
-//            );
-//        }
     }
 }
