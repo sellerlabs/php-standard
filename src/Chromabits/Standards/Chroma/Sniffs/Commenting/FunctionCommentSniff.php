@@ -138,7 +138,7 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
             if ($tokens[($tag + 2)]['code'] === T_DOC_COMMENT_STRING) {
                 $matches = [];
                 preg_match(
-                    '/([^$&]+)(?:((?:\$|&)[^\s]+)(?:(\s+)(.*))?)?/',
+                    '/([^$&\.]+)(?:((?:\$|&|\.)[^\s]+)(?:(\s+)(.*))?)?/',
                     $tokens[($tag + 2)]['content'],
                     $matches
                 );
@@ -152,7 +152,7 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
                 }
 
                 if (isset($matches[2]) === true) {
-                    $var = $matches[2];
+                    $var = str_replace('...', '', $matches[2]);
                     $varLen = strlen($var);
                     if ($varLen > $maxVar) {
                         $maxVar = $varLen;
@@ -491,7 +491,6 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
             case 'boolean':
             case 'float':
             case 'double':
-            case 'string':
             case 'null':
             case 'array';
             case 'mixed':
@@ -500,6 +499,7 @@ class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
             case 'callable':
             case 'resource':
             case 'object':
+            case '$this':
                 return true;
             default:
                 return false;
