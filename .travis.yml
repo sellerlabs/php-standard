@@ -1,0 +1,19 @@
+language: php
+php:
+- 5.6
+- nightly
+- hhvm
+before_script:
+- composer self-update
+- sh -c 'if [ "$TRAVIS_PHP_VERSION" = "hhvm" -o "$TRAVIS_PHP_VERSION" = "hhvm-nightly"
+  ]; then composer update --ignore-platform-reqs; else composer update; fi'
+script:
+- php build.php
+deploy:
+  provider: releases
+  api_key:
+    secure: ZkeZZgkZa673WxwBqX9LTOc5OzL2kGtGfGgK9UnbyMyb3Z2uk1DHd6E7c3Au2KWV0gyF5ZUu3IOEee3gt5zp6460DtqIL2XICvI2aDQxd/gwpEoFG82HFHXqfVE5/KKp38HKJgR/HgeqNVMsaEc7y+XrX8p7rnW/1aDJ4rJTWYU=
+  file: phpstd.phar
+  on:
+    repo: etcinit/php-coding-standard
+    php: 5.6
