@@ -26,7 +26,7 @@ class Application extends BaseApplication
      */
     public function __construct()
     {
-        parent::__construct('phpstd', '0.1.7');
+        parent::__construct('phpstd', '0.1.9');
 
         $fix = new FixCommand();
         $init = new InitCommand();
