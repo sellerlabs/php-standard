@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "78f14e1f35dd685b336e5742ee1d6b51",
+    "hash": "b492b6a185798c7a276aeda07cda87f8",
     "packages": [
         {
             "name": "chromabits/nucleus",
-            "version": "v0.2.4",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/etcinit/nucleus.git",
-                "reference": "7c640203963b0485489cd9b432f0b7cfaf2c5c2c"
+                "reference": "58381c3d9746e0a16acdfb4b1f084a0434fe79fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/etcinit/nucleus/zipball/7c640203963b0485489cd9b432f0b7cfaf2c5c2c",
-                "reference": "7c640203963b0485489cd9b432f0b7cfaf2c5c2c",
+                "url": "https://api.github.com/repos/etcinit/nucleus/zipball/58381c3d9746e0a16acdfb4b1f084a0434fe79fd",
+                "reference": "58381c3d9746e0a16acdfb4b1f084a0434fe79fd",
                 "shasum": ""
             },
             "require": {
@@ -28,12 +28,18 @@
                 "phpunit/phpunit": "*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Chromabits\\Nucleus\\": "src/Chromabits/Nucleus"
                 },
                 "files": [
-                    "src/Chromabits/Nucleus/Support/globals.php"
+                    "src/Chromabits/Nucleus/Support/globals.php",
+                    "src/Chromabits/Nucleus/Support/intl.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -47,7 +53,7 @@
                 }
             ],
             "description": "Some core PHP utilities",
-            "time": "2015-07-17 18:05:56"
+            "time": "2015-08-18 15:42:19"
         },
         {
             "name": "fabpot/php-cs-fixer",
