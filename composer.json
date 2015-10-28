@@ -16,7 +16,7 @@
   },
   "require": {
     "fabpot/php-cs-fixer": "~1.9",
-    "chromabits/nucleus": "~0.2",
+    "chromabits/nucleus": "~0.4",
     "mmoreram/php-formatter": "~1.0",
     "squizlabs/php_codesniffer": "~2.3",
     "symfony/console": "~2.7",
