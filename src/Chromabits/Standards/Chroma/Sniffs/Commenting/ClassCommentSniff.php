@@ -23,6 +23,20 @@ use PEAR_Sniffs_Commenting_ClassCommentSniff as BaseSniff;
 class Chroma_Sniffs_Commenting_ClassCommentSniff extends BaseSniff
 {
     /**
+     * Returns an array of tokens this test wants to listen for.
+     *
+     * @return array
+     */
+    public function register()
+    {
+        return [
+            T_CLASS,
+            T_INTERFACE,
+            T_TRAIT,
+        ];
+    }
+
+    /**
      * Custom tag definitions for the Chroma standard.
      *
      * @var array
