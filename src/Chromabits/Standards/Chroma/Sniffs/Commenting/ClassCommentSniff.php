@@ -131,6 +131,13 @@ class Chroma_Sniffs_Commenting_ClassCommentSniff extends BaseSniff
                     $commentStart + 5
                 );
             }
+        } elseif ($type == 'trait') {
+            if (substr($firstComment, 0, 5) != 'Trait') {
+                $file->addError(
+                    'First line should have form: "Trait ClassName"',
+                    $commentStart + 5
+                );
+            }
         }
 
         parent::processTags($file, $stackPtr, $commentStart);
