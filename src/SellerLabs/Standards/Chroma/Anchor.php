@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@sellerlabs.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -9,13 +9,13 @@
  * This file is part of the PHP Standards package
  */
 
-namespace Chromabits\Standards\Chroma;
+namespace SellerLabs\Standards\Chroma;
 
 /**
  * Class Anchor.
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
- * @package Chromabits\Standards\Chroma
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
+ * @package SellerLabs\Standards\Chroma
  */
 class Anchor
 {

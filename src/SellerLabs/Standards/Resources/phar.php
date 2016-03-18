@@ -22,7 +22,7 @@ Phar::mapPhar('phpstd.phar');
 
 require_once 'phar://phpstd.phar/vendor/autoload.php';
 
-use Chromabits\Standards\Console\Application;
+use SellerLabs\Standards\Console\Application;
 
 $app = new Application();
 $app->run();

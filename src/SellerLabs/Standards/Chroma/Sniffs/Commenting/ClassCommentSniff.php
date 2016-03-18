@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@sellerlabs.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,8 +17,8 @@ use PEAR_Sniffs_Commenting_ClassCommentSniff as BaseSniff;
  * Makes sure a class comment exists and has a minimum set of parameters
  * (author, package) and enforces a simple order on every file
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
- * @package Chromabits\Standards\Chroma\Sniffs\Commenting
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
+ * @package SellerLabs\Standards\Chroma\Sniffs\Commenting
  */
 class Chroma_Sniffs_Commenting_ClassCommentSniff extends BaseSniff
 {

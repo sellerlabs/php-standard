@@ -5,7 +5,7 @@ use Generic_Sniffs_NamingConventions_CamelCapsFunctionNameSniff as Base;
 /**
  * Class Chroma_Sniffs_NamingConventions_FunctionNameSniff
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
  */
 class Chroma_Sniffs_NamingConventions_FunctionNameSniff extends Base
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@sellerlabs.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -9,7 +9,7 @@
  * This file is part of the PHP Standards package
  */
 
-namespace Chromabits\Standards\Style;
+namespace SellerLabs\Standards\Style;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -20,8 +20,8 @@ use Symfony\CS\FixerInterface;
 /**
  * Class StyleConfig.
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
- * @package Chromabits\Standards\Style
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
+ * @package SellerLabs\Standards\Style
  */
 class StyleConfig extends Config
 {
@@ -103,7 +103,7 @@ class StyleConfig extends Config
     }
 
     /**
-     * Make the default finder for Chromabits projects.
+     * Make the default finder for SellerLabs projects.
      *
      * @return Finder
      */

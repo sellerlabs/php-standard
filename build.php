@@ -16,5 +16,5 @@ $phar->buildFromIterator(
 );
 
 $phar->setStub(
-    file_get_contents('src/Chromabits/Standards/Resources/phar.php')
+    file_get_contents('src/SellerLabs/Standards/Resources/phar.php')
 );

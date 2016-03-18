@@ -6,8 +6,8 @@ use PHP_CodeSniffer_File as File;
 /**
  * Class FunctionCommentSniff
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
- * @package Chromabits\Standards\Chroma\Sniffs\Commenting
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
+ * @package SellerLabs\Standards\Chroma\Sniffs\Commenting
  */
 class Chroma_Sniffs_Commenting_FunctionCommentSniff extends BaseSniff
 {

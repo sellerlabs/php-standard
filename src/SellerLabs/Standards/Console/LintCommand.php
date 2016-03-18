@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@sellerlabs.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -9,10 +9,10 @@
  * This file is part of the PHP Standards package
  */
 
-namespace Chromabits\Standards\Console;
+namespace SellerLabs\Standards\Console;
 
-use Chromabits\Standards\Chroma\Anchor;
-use Chromabits\Standards\Style\RootDirectories;
+use SellerLabs\Standards\Chroma\Anchor;
+use SellerLabs\Standards\Style\RootDirectories;
 use PHP_CodeSniffer as CodeSniffer;
 use PHP_CodeSniffer_CLI as CLI;
 use PHP_CodeSniffer_File  as File;
@@ -26,8 +26,8 @@ use Symfony\Component\Finder\Finder;
 /**
  * Class LintCommand.
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
- * @package Chromabits\Standards\Console
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
+ * @package SellerLabs\Standards\Console
  */
 class LintCommand extends Command
 {

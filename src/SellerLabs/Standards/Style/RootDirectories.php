@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015, Eduardo Trujillo <ed@chromabits.com>
+ * Copyright 2015, Eduardo Trujillo <ed@sellerlabs.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -9,15 +9,15 @@
  * This file is part of the PHP Standards package
  */
 
-namespace Chromabits\Standards\Style;
+namespace SellerLabs\Standards\Style;
 
-use Chromabits\Nucleus\Support\Enum;
+use SellerLabs\Nucleus\Support\Enum;
 
 /**
  * Class RootDirectories.
  *
- * @author Eduardo Trujillo <ed@chromabits.com>
- * @package Chromabits\Standards\Style
+ * @author Eduardo Trujillo <ed@sellerlabs.com>
+ * @package SellerLabs\Standards\Style
  */
 class RootDirectories extends Enum
 {

@@ -20,10 +20,6 @@ TODO
 
 Pull requests are accepted on GitHub. Bug fixes and small improvements are welcome. However, big style changes will be carefully review. Many code style decisions are purely personal (snake_case vs camelCase).
 
-## Security
-
-If you discover any security related issues, please email ed+security@chromabits.com instead of using the issue tracker.
-
 ## License
 
 This code is licensed under the MIT license. See LICENSE for more information.
