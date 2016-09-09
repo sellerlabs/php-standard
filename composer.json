@@ -15,12 +15,12 @@
     }
   },
   "require": {
-    "fabpot/php-cs-fixer": "~1.9",
+    "symfony/console": "^2.7|^3.0",
+    "symfony/finder": "^2.7|^3.0",
+    "friendsofphp/php-cs-fixer": "~1.9",
     "sellerlabs/nucleus": "~0.5",
-    "mmoreram/php-formatter": "~1.0",
-    "squizlabs/php_codesniffer": "~2.3",
-    "symfony/console": "~2.7",
-    "symfony/finder": "^2.7"
+    "mmoreram/php-formatter": "^1.0",
+    "squizlabs/php_codesniffer": "~2.3"
   },
   "minimum-stability": "stable",
   "bin": ["phpstd"]

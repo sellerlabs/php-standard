@@ -1,6 +1,6 @@
-# php-standard
+# php-standard [![Build Status](https://travis-ci.org/sellerlabs/php-standard.svg?branch=master)](https://travis-ci.org/sellerlabs/php-standard)
 
-This repository contains tools for enforcing a personal PHP coding style
+This repository contains tools for enforcing the SellerLabs PHP coding style
 standard and a specific project organization structure.
 
 It's highly opinionated. You've been warned. No crybabies please.

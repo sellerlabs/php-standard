@@ -32,7 +32,7 @@ class FixCommand extends BaseCommand
         Fixer $fixer = null,
         ConfigInterface $config = null
     ) {
-        parent::__construct($fixer, coalesce($config, new StyleConfig()));
+        parent::__construct($fixer, $config ?: new StyleConfig());
 
         $this->setName('style:fix');
         $this->setDescription('Fixes a directory or a file.');

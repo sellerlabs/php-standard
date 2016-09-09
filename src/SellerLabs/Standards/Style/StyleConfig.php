@@ -39,7 +39,7 @@ class StyleConfig extends Config
     ) {
         parent::__construct($name, $description);
 
-        $this->finder = coalesce($finder, $this->makeFinder());
+        $this->finder = $finder ?: $this->makeFinder();
 
         $this->level(FixerInterface::NONE_LEVEL);
         $this->fixers([
