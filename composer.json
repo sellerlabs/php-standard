@@ -18,7 +18,7 @@
     "symfony/console": "^2.7|^3.0",
     "symfony/finder": "^2.7|^3.0",
     "friendsofphp/php-cs-fixer": "~1.9",
-    "sellerlabs/nucleus": "~0.5",
+    "sellerlabs/nucleus": "~0.6",
     "mmoreram/php-formatter": "^1.0",
     "squizlabs/php_codesniffer": "~2.3"
   },
